@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.kotdev.trading.splash.compose.test.compose-mergeDebugAndroidTestResources-75:/values-small-v4/values-small-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\dmitr\\.gradle\\caches\\transforms-4\\96ee33f5d0f7b4234aacd602c1f96066\\transformed\\material-1.4.0-beta01\\res\\values-small-v4\\values-small-v4.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,128,198,270",
+                        "endColumns": "72,69,71,69",
+                        "endOffsets": "123,193,265,335"
+                    }
+                }
+            ]
+        }
+    ]
+}

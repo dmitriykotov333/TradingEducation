@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.kotdev.trading.service.test.service-mergeDebugAndroidTestResources-66:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\dmitr\\.gradle\\caches\\transforms-4\\62c3a66ecd00e4b476eb68ff4ebf9b55\\transformed\\appcompat-1.6.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}

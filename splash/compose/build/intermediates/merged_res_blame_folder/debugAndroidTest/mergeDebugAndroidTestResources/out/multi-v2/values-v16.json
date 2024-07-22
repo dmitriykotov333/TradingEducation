@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.kotdev.trading.splash.compose.test.compose-mergeDebugAndroidTestResources-75:/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\dmitr\\.gradle\\caches\\transforms-4\\62c3a66ecd00e4b476eb68ff4ebf9b55\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\dmitr\\.gradle\\caches\\transforms-4\\450a96caf413b38e69e403a459e82d7e\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                }
+            ]
+        }
+    ]
+}

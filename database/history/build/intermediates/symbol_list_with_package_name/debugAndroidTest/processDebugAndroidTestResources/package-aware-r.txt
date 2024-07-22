@@ -1,0 +1,1 @@
+com.kotdev.trading.database.history.test

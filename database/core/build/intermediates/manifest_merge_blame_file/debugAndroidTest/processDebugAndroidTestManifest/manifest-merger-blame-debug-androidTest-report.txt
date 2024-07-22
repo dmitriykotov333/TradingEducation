@@ -1,0 +1,45 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.kotdev.trading.database.core.test" >
+4
+5    <uses-sdk
+5-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:5:5-74
+6        android:minSdkVersion="26"
+6-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:5:15-41
+7        android:targetSdkVersion="34" />
+7-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:5:42-71
+8
+9    <instrumentation
+9-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:11:5-15:87
+10        android:name="androidx.test.runner.AndroidJUnitRunner"
+10-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:11:22-76
+11        android:functionalTest="false"
+11-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:14:22-52
+12        android:handleProfiling="false"
+12-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:13:22-53
+13        android:label="Tests for com.kotdev.trading.database.core.test"
+13-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:15:22-85
+14        android:targetPackage="com.kotdev.trading.database.core.test" />
+14-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:12:22-83
+15
+16    <application
+16-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:7:5-9:19
+17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+17-->[androidx.core:core:1.8.0] C:\Users\dmitr\.gradle\caches\transforms-4\4e2ffea57244397043fdd8807268f2b0\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+18        android:debuggable="true"
+19        android:extractNativeLibs="false" >
+20        <uses-library android:name="android.test.runner" />
+20-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:8:9-60
+20-->E:\StudioProjects\TradingEducation\database\core\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4396133602187027216.xml:8:23-57
+21
+22        <service
+22-->[androidx.room:room-runtime:2.6.1] C:\Users\dmitr\.gradle\caches\transforms-4\bde94ec8f67c861d2873907a58549503\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+23            android:name="androidx.room.MultiInstanceInvalidationService"
+23-->[androidx.room:room-runtime:2.6.1] C:\Users\dmitr\.gradle\caches\transforms-4\bde94ec8f67c861d2873907a58549503\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+24            android:directBootAware="true"
+24-->[androidx.room:room-runtime:2.6.1] C:\Users\dmitr\.gradle\caches\transforms-4\bde94ec8f67c861d2873907a58549503\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+25            android:exported="false" />
+25-->[androidx.room:room-runtime:2.6.1] C:\Users\dmitr\.gradle\caches\transforms-4\bde94ec8f67c861d2873907a58549503\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+26    </application>
+27
+28</manifest>

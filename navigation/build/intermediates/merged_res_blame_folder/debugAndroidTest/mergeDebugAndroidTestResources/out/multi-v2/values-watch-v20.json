@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.kotdev.trading.navigation.test.navigation-mergeDebugAndroidTestResources-78:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\dmitr\\.gradle\\caches\\transforms-4\\62c3a66ecd00e4b476eb68ff4ebf9b55\\transformed\\appcompat-1.6.1\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    }
+                }
+            ]
+        }
+    ]
+}
