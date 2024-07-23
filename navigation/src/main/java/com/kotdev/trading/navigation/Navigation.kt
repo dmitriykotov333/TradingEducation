@@ -6,8 +6,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kotdev.trading.core.navigation.AppGraph
 import com.kotdev.trading.core.navigation.AppNavigator
+import com.kotdev.trading.navigation.destination.article
+import com.kotdev.trading.navigation.destination.faq
 import com.kotdev.trading.navigation.destination.history
+import com.kotdev.trading.navigation.destination.settings
 import com.kotdev.trading.navigation.destination.splash
+import com.kotdev.trading.navigation.destination.trading
 
 
 @Composable
@@ -19,10 +23,10 @@ fun generateGraph(activity: Activity) {
         startDestination = AppGraph.Splash.route
     ) {
         splash()
-       // trading(activity)
+        trading(activity)
         history()
-        //settings()
-       // faq()
-        //article()
+        settings()
+        faq()
+        article()
     }
 }

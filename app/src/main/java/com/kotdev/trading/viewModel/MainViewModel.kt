@@ -2,7 +2,7 @@ package com.kotdev.trading.viewModel
 
 import androidx.lifecycle.viewModelScope
 import com.kotdev.trading.core.viewmodel.BaseViewModel
-import com.kotdev.trading.preferences.LocalePreferences
+import com.kotdev.trading.trading.data.preferences.LocalePreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

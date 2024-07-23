@@ -14,8 +14,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import coil.compose.AsyncImage
-import com.kotdev.trading.core_ui.TradingEducationTheme
-import com.kotdev.trading.helpers.LocaleHelper
+import com.kotdev.trading.core_ui.theme.TradingEducationTheme
+import com.kotdev.trading.core.helpers.LocaleHelper
 import com.kotdev.trading.navigation.setupNavigation
 import com.kotdev.trading.viewModel.MainAction
 import com.kotdev.trading.viewModel.MainViewModel

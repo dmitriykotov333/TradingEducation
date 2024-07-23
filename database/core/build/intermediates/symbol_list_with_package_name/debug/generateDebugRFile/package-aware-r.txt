@@ -1,1 +1,0 @@
-com.kotdev.trading.database.core

@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
     api(project(":database:core"))
+    api(project(":history:model"))
 }
 

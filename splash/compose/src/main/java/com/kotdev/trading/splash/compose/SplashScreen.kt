@@ -25,8 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.kotdev.trading.core_ui.Poppins
-import com.kotdev.trading.core_ui.Theme
+import com.kotdev.trading.core_ui.theme.Poppins
+import com.kotdev.trading.core_ui.theme.Theme
 import com.kotdev.trading.splash.presentation.SplashViewModel
 
 @Composable

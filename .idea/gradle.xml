@@ -23,10 +23,13 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appwrite" />
+            <option value="$PROJECT_DIR$/articles" />
+            <option value="$PROJECT_DIR$/articles/compose" />
+            <option value="$PROJECT_DIR$/articles/presentation" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core-ui" />
+            <option value="$PROJECT_DIR$/core_ui" />
             <option value="$PROJECT_DIR$/database" />
             <option value="$PROJECT_DIR$/database/balance" />
             <option value="$PROJECT_DIR$/database/core" />
@@ -34,11 +37,19 @@
             <option value="$PROJECT_DIR$/database/pair" />
             <option value="$PROJECT_DIR$/history" />
             <option value="$PROJECT_DIR$/history/compose" />
+            <option value="$PROJECT_DIR$/history/data" />
+            <option value="$PROJECT_DIR$/history/model" />
             <option value="$PROJECT_DIR$/history/presentation" />
+            <option value="$PROJECT_DIR$/navigation" />
             <option value="$PROJECT_DIR$/service" />
             <option value="$PROJECT_DIR$/splash" />
             <option value="$PROJECT_DIR$/splash/compose" />
             <option value="$PROJECT_DIR$/splash/presentation" />
+            <option value="$PROJECT_DIR$/trading" />
+            <option value="$PROJECT_DIR$/trading/compose" />
+            <option value="$PROJECT_DIR$/trading/data" />
+            <option value="$PROJECT_DIR$/trading/model" />
+            <option value="$PROJECT_DIR$/trading/presentation" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

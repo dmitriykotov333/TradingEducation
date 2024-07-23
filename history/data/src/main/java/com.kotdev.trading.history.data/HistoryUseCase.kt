@@ -1,9 +1,9 @@
 package com.kotdev.trading.history.data
 
+import HistoryItem
 import com.kotdev.trading.HistoryDBO
 import com.kotdev.trading.core.extensions.dateToFormat
 import com.kotdev.trading.core.extensions.longToDateFormat
-import com.kotdev.trading.history.data.HistoryItem
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import java.util.Date
