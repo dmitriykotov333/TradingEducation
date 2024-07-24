@@ -21,6 +21,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -28,6 +30,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
@@ -45,10 +48,10 @@ class SessionManager @Inject constructor(
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    private val tradingScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    private val tradingManager = TradingManager(tradingScope, balanceDao, historyDao)
+   // private val tradingScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val tradingManager = TradingManager(/*tradingScope,*/ balanceDao, historyDao)
 
-    private val map = ConcurrentHash<String, BaseSessionPair>()
+    private val map = ConcurrentHashMap<String, BaseSessionPair>()
 
     private var activePair = Utils.USD_EUR
     private var activeTrading = mutableListOf<String>()
@@ -88,31 +91,39 @@ class SessionManager @Inject constructor(
     private fun initData(items: List<PairDBO>) {
         if (pairJob != null) return
         pairJob = coroutineScope.launch {
-            items.forEach {
-                val generate = MutableList(40) { i ->
-                    TradingData(
-                        time = System.currentTimeMillis(),
-                        price = it.value.toFloat() + Random.nextDouble(-0.00075, 0.00075)
-                            .toFloat()
+            val deferred = items.map {
+                async {
+                    val generate = MutableList(40) { i ->
+                        TradingData(
+                            time = System.currentTimeMillis(),
+                            price = it.value.toFloat() + Random.nextDouble(-0.00075, 0.00075)
+                                .toFloat()
+                        )
+                    }
+                    map.put(
+                        it.pair, BaseSessionPair(
+                            icon = it.pair.getIcon(),
+                            pair = it.pair,
+                            apiPrice = it.value.toFloat(),
+                            currentPrice = it.value.toFloat(),
+                            percent = 0f,
+                            lineData = updateLineData(generate),
+                            tradingData = generate
+                        )
                     )
                 }
-                map.put(
-                    it.pair, BaseSessionPair(
-                        icon = it.pair.getIcon(),
-                        pair = it.pair,
-                        apiPrice = it.value.toFloat(),
-                        currentPrice = it.value.toFloat(),
-                        percent = 0f,
-                        lineData = updateLineData(generate),
-                        tradingData = generate
-                    )
-                )
             }
-            map.getMap().forEach { s, baseSessionPair ->
+            deferred.awaitAll()
+            map.values.forEach {
                 launch {
-                    startPriceUpdates(baseSessionPair)
+                    startPriceUpdates(it)
                 }
             }
+//            map.toMap().forEach { s, baseSessionPair ->
+//                launch {
+//                    startPriceUpdates(baseSessionPair)
+//                }
+//            }
 
             pairDatabase.emit(items.map { pair ->
                 pair.mapToPairUI()
@@ -180,7 +191,7 @@ class SessionManager @Inject constructor(
             val currentPrice =
                 apiPrice + Random.nextDouble(-0.00075, 0.00075).toFloat()
             val tradingData = mutableListOf<TradingData>()
-            tradingData.addAll(map.get(pair.pair)!!.tradingData)
+            tradingData.addAll(pair.tradingData/*map.get(pair.pair)!!.tradingData*/)
             tradingData.add(
                 TradingData(
                     time = System.currentTimeMillis(),
@@ -194,8 +205,8 @@ class SessionManager @Inject constructor(
                 progressPair = Pair(down, up)
                 progressTime = 0
             }
-            map.change(
-                pair.pair, map.get(pair.pair)!!.copy(
+            map.replace(
+                pair.pair, pair.copy(
                     currentPrice = currentPrice,
                     lineData = lineData,
                     percent = ((currentPrice - apiPrice) / apiPrice) * 100,
@@ -207,11 +218,14 @@ class SessionManager @Inject constructor(
             activeTrading.forEach {
                 coroutineScope.launch {
                     if (pair.pair == it) {
-                        tradingManager.getActiveTrading(it, currentPrice)
+                        val rst = tradingManager.getActiveTrading(it, currentPrice)
+                        if (rst?.pair == activePair) {
+                            tradingPair.emit(rst)
+                        }
                     }
                 }
             }
-            tradingPair.emit(tradingManager.getTrading(activePair))
+           // tradingPair.emit(tradingManager.getTrading(activePair))
             progressTime += 1
             delay(3000)
         }

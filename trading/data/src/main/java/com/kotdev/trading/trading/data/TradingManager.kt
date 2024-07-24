@@ -9,17 +9,23 @@ import com.kotdev.trading.HistoryDBO
 import com.kotdev.trading.HistoryDao
 import com.kotdev.trading.core.Utils
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import java.util.concurrent.ConcurrentHashMap
 
 class TradingManager(
-    private val coroutineScope: CoroutineScope,
+    //private val coroutineScope: CoroutineScope,
     private val balanceDao: BalanceDao,
     private val historyDao: HistoryDao
 ) {
+
+    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
     private val tradingJobs = mutableMapOf<String, Job>()
 
-    private val map = ConcurrentHash<String, TradingPair>()
+    private val map = ConcurrentHashMap<String, TradingPair>()
 
     private fun calculateUp(pair: String, currentPrice: Float, startingPrice: Float): Float {
         return (currentPrice - startingPrice) * pair.profitabilityRatio() * 1000
@@ -74,7 +80,7 @@ class TradingManager(
     suspend fun updateTradingPair(pair: String, closePrice: Float): TradingPair? {
         return map.get(pair)?.let { trading ->
             println("Trading update ${pair} with close price $closePrice")
-            map.change(
+            map.replace(
                 pair, trading.copy(
                     closePrice = closePrice,
                     profit = trading.type.calculateProfit(
@@ -82,6 +88,14 @@ class TradingManager(
                         startingPrice = trading.openPrice,
                         currentPrice = closePrice
                     )
+                )
+            )
+            return trading.copy(
+                closePrice = closePrice,
+                profit = trading.type.calculateProfit(
+                    pair = pair,
+                    startingPrice = trading.openPrice,
+                    currentPrice = closePrice
                 )
             )
         }
@@ -110,7 +124,7 @@ class TradingManager(
                     icon = it.pair.getIcon(),
                     pair = it.pair,
                     openTime = it.tradeOpenTime,
-                    closeTime = it.tradeOpenTime,
+                    closeTime = System.currentTimeMillis(),
                     openPrice = it.openPrice.toDouble(),
                     closePrice = closePrice.toDouble(),
                     profit = it.profit.toDouble()
