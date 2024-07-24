@@ -110,14 +110,12 @@ fun ColumnScope.GraphContent(
                         granularity = .001f
                         axisMinimum = entry.y - 0.01f
                         axisMaximum = entry.y + 0.01f
-
+                        removeAllLimitLines()
                         if (state.tradingPair?.openPrice != null) {
                             val ll = LimitLine(state.tradingPair!!.openPrice)
                             ll.lineColor = Color.Red.toArgb()
                             ll.lineWidth = 1f
                             addLimitLine(ll)
-                        } else {
-                            removeAllLimitLines()
                         }
                     }
 
