@@ -34,8 +34,3 @@ I've used Modularization to make the app more scalable and maintainable.
 | ------------- | ------------- |
 | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-13-09.jpg" height="420" /> | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-08-39.jpg" height="420" />  |
 
-
-### TODO
-
-- Unit Tests
-- Logic bug fixes
