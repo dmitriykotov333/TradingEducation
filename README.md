@@ -37,9 +37,6 @@ I've used Modularization to make the app more scalable and maintainable.
 
 ### How to use this project
 
-Open this project in <a href="https://developer.android.com/studio">Android Studio</a>.
-
-#### Here
 | <a href = "https://github.com/dmitriykotov333/TradingEducation/blob/master/gradle.properties"> gradle.properties</a><br>locale.properties  | API |
 | ------------- | ------------- |
 | API_KEY | Get an API key from <a href="https://www.exchangerate-api.com/">Exchange Rate API.</a> |
@@ -47,5 +44,5 @@ Open this project in <a href="https://developer.android.com/studio">Android Stud
 | COLLECTION_ID | <a href="https://appwrite.io/">Appwrite Service</a> |
 | DATABASE_ID | <a href="https://appwrite.io/">Appwrite Service</a> |
 
-#### Create attributes like in this screen
+#### Create attributes like in this screen <a href="https://appwrite.io/">Appwrite Service</a>
 ![image](https://github.com/user-attachments/assets/ef8c2dd8-bbe1-4671-8407-9124ef5bde84)
