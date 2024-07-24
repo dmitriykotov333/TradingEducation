@@ -28,11 +28,11 @@ I've used Modularization to make the app more scalable and maintainable.
 
 | Trading                                                                                                                         | Active trading | Completion of trade |
 |---------------------------------------------------------------------------------------------------------------------------------| ------------- | ------------- |
-| <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-08-55.jpg" height="420" /> | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/photo_2024-07-24_00-22-08.jpg" height="420" />  | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/photo_2024-07-24_00-22-03.jpg" height="420" /> |
+| <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-08-55.jpg" height="420" /> | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-22-08.jpg" height="420" />  | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-22-03.jpg" height="420" /> |
 
 | History | Settings |
 | ------------- | ------------- |
-| <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/photo_2024-07-24_00-13-09.jpg" height="420" /> | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/photo_2024-07-24_00-08-39.jpg" height="420" />  |
+| <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-13-09.jpg" height="420" /> | <img src="https://github.com/dmitriykotov333/TradingEducation/blob/master/images/photo_2024-07-24_00-08-39.jpg" height="420" />  |
 
 
 ### TODO
