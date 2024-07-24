@@ -20,12 +20,10 @@ internal fun Project.configureAndroidCompose(
             *>
 ) {
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
     commonExtension.apply {
         buildFeatures {
             compose = true
         }
-
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
             add("implementation", platform(bom))
@@ -35,12 +33,12 @@ internal fun Project.configureAndroidCompose(
             add("implementation", libs.findLibrary("androidx-ui-graphics").get())
         }
     }
-
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
             freeCompilerArgs = freeCompilerArgs + buildComposeMetricsParameters()
         }
     }
+
 }
 
 private fun Project.buildComposeMetricsParameters(): List<String> {

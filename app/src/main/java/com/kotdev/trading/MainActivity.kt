@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import coil.compose.AsyncImage
 import com.kotdev.trading.core_ui.theme.TradingEducationTheme
 import com.kotdev.trading.core.helpers.LocaleHelper
-import com.kotdev.trading.navigation.setupNavigation
+import com.kotdev.trading.navigation.generateGraph
 import com.kotdev.trading.viewModel.MainAction
 import com.kotdev.trading.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                             contentScale = ContentScale.Crop,
                             contentDescription = null,
                         )
-                        setupNavigation(this@MainActivity)
+                        generateGraph(this@MainActivity)
                     }
                 }
             }

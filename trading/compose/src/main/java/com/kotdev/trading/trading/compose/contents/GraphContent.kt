@@ -33,7 +33,9 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.zIndex
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginEnd
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.LimitLine
@@ -154,7 +156,6 @@ fun LineChart.setupChart() {
     setViewPortOffsets(0f, 0f, 0f, 0f)
     description.isEnabled = false
     legend.isEnabled = false
-    animateX(1000)
     axisRight.apply {
 
         setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
@@ -176,10 +177,10 @@ fun LineChart.setupChart() {
         position = XAxis.XAxisPosition.BOTTOM
         setDrawAxisLine(false)
         setDrawGridLines(true)
+        setAvoidFirstLastClipping(true)
         setLabelCount(7, false)
         gridLineWidth = 1.dp.value
         gridColor = Color(0xFF686869).toArgb()
-        setPadding(100, 0, 0, 0)
         setTypeface(ResourcesCompat.getFont(context, R.font.poppins_light));
         setTextSize(10.dp.value);
         setTextColor(Color(0xFF686869).toArgb())

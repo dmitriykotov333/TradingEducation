@@ -8,6 +8,7 @@ import com.kotdev.trading.service.api.ApiResult
 import com.kotdev.trading.service.api.ServiceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,6 +41,7 @@ class SplashViewModel @Inject constructor(
 
                         is ApiResult.Error -> {
                             viewState = viewState.copy(error = it.error ?: "Something went wrong")
+                            delay(2100)
                             AppNavigator.navigateWithClearPreviousScreen(
                                 AppGraph.App,
                                 AppGraph.Trading

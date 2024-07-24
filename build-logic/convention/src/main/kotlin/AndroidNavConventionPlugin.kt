@@ -16,6 +16,8 @@ class AndroidNavConventionPlugin : Plugin<Project> {
             dependencies {
                 "implementation"(libs.findLibrary("android-navigation").get())
                 "implementation"(libs.findLibrary("android-navigation-ui").get())
+                "implementation"(libs.findLibrary("android-hilt-navigation").get())
+
             }
         }
     }

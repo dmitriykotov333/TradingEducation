@@ -51,7 +51,6 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
-        buildConfig = true
         compose = true
     }
 //    composeOptions {
@@ -65,7 +64,7 @@ android {
 
 }
 composeCompiler {
-    enableStrongSkippingMode = true
+   // enableStrongSkippingMode = true
 
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
 }
@@ -79,13 +78,7 @@ dependencies {
     kapt(libs.android.hilt.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-
+    implementation(libs.android.coil.compose)
     implementation(libs.android.navigation)
     implementation(libs.android.navigation.ui)
     implementation(libs.android.coroutine)
@@ -94,12 +87,10 @@ dependencies {
     implementation(libs.android.viewmodel.savedstate)
     implementation(libs.android.lifecycle.runtime)
     kapt(libs.android.lifecycle.compiler)
-    implementation(libs.android.coil.compose)
     implementation(libs.android.chart)
     implementation(libs.serialization.json)
     implementation(libs.android.room.paging)
     implementation(libs.android.paging.runtime)
-    implementation(libs.android.paging.compose)
     implementation(libs.android.ktor.core)
     implementation(libs.android.ktor.json)
     implementation(libs.android.ktor.serialization)
@@ -111,7 +102,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

@@ -16,7 +16,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
             }
-
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 34
@@ -31,6 +30,11 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", kotlin("test"))
                 add("testImplementation", kotlin("test"))
             }
+//            project.extensions.configure<ComposeCompilerExtension> {
+//                enableStrongSkippingMode.set(true)
+//                reportsDestination.set(project.layout.buildDirectory.dir("compose_compiler"))
+//            }
         }
+
     }
 }
