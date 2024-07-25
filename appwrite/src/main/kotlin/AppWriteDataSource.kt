@@ -56,11 +56,3 @@ class AppWriteDataSource @Inject constructor(
         }
     }
 }
-
-//fun Document<Map<String, Any>>.mapDocumentToPair(): PairDBO {
-//    return PairDBO(
-//        pair = this.data.getValue("pair") as String,
-//        value = this.data.getValue("value") as Double,
-//        time_next_update = this.data.getValue("time_next_update") as String
-//    )
-//}

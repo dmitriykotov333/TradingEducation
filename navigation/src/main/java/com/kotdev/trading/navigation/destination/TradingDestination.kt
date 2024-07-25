@@ -9,7 +9,6 @@ import com.kotdev.trading.trading.compose.TradingScreen
 
 
 fun NavGraphBuilder.trading(activity: Activity) {
-
     composable(
         AppGraph.Trading.route
     ) {

@@ -23,6 +23,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +43,7 @@ import coil.compose.AsyncImage
 import com.kotdev.trading.core.ArticleDetail
 import com.kotdev.trading.core.navigation.AppGraph
 import com.kotdev.trading.core.navigation.AppNavigator
+import com.kotdev.trading.core_ui.component.HeaderContent
 import com.kotdev.trading.core_ui.modifiers.bounceClick
 import com.kotdev.trading.core_ui.modifiers.noRippleClickable
 import com.kotdev.trading.core_ui.theme.Poppins
@@ -55,63 +59,26 @@ fun ArticleDetailScreen(
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState { articles.size }
 
+    val visible by remember {
+        derivedStateOf {
+            pagerState.currentPage + 1 != pagerState.pageCount
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Spacer(modifier = Modifier.width(5.dp))
-            IconButton(onClick = {
-                AppNavigator.back(AppGraph.App)
-            }) {
-                Image(
-                    modifier = Modifier.size(20.dp),
-                    painter = painterResource(com.kotdev.trading.core_ui.R.drawable.back_arrow), contentDescription = null
-                )
-            }
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                text = stringResource(com.kotdev.trading.core_ui.R.string.back),
-                style = TextStyle(
-                    color = Color(0xFF838383),
-                    lineHeight = 25.sp,
-                    fontSize = 16.sp,
-                    fontFamily = Poppins,
-                    fontWeight = FontWeight.Normal
-                ),
-            )
+        HeaderContent {
+            AppNavigator.back(AppGraph.App)
         }
         Spacer(modifier = Modifier.height(15.dp))
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 15.dp),
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            repeat(pagerState.pageCount) { iteration ->
-                val color =
-                    if (pagerState.currentPage == iteration) Color(0xFF22DBBB) else Color(
-                        0xFF323234
-                    )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(8.dp)
-                        .weight(1f)
-                        .background(color, RoundedCornerShape(10.dp))
-                )
-            }
-        }
+        PagerIndicator(
+            pageCount = pagerState.pageCount,
+            currentPage = pagerState.currentPage
+        )
         Spacer(modifier = Modifier.height(15.dp))
         HorizontalPager(
             modifier = Modifier
@@ -127,84 +94,15 @@ fun ArticleDetailScreen(
         ) { page ->
             ArticleItem(articles[page])
         }
-        if (pagerState.currentPage + 1 != pagerState.pageCount) {
+        if (visible) {
             Spacer(modifier = Modifier.height(15.dp))
-            Box(
-                modifier = Modifier
-                    .bounceClick(from = .91f)
-                    .background(
-                        Theme.colors.greenDark,
-                        RoundedCornerShape(10.dp)
-                    ).noRippleClickable {
-                        scope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                        }
-                    }
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 50.dp, vertical = 5.dp),
-                    text = stringResource(com.kotdev.trading.core_ui.R.string.next),
-                    style = TextStyle(
-                        color = Theme.colors.neutralWhite,
-                        lineHeight = 24.sp,
-                        fontSize = 16.sp,
-                        fontFamily = Poppins,
-                        fontWeight = FontWeight.Normal
-                    ),
-                )
+            PagerButton {
+                scope.launch {
+                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                }
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
     }
 }
 
-@Composable
-internal fun ArticleItem(
-    item: ArticleDetail
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AsyncImage(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(270.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .border(
-                    BorderStroke(1.dp, Color(0xFF3B3B3B)), RoundedCornerShape(10.dp)
-                ),
-            model = item.background,
-            contentScale = ContentScale.FillBounds,
-            contentDescription = null,
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(item.title),
-            textAlign = TextAlign.Start,
-            style = TextStyle(
-                color = Theme.colors.pairColor,
-                lineHeight = 26.sp,
-                fontSize = 21.sp,
-                fontFamily = Poppins,
-                fontWeight = FontWeight.Bold
-            ),
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            modifier = Modifier,
-            text = stringResource(item.description),
-            style = TextStyle(
-                color = Theme.colors.pairColor,
-                lineHeight = 26.sp,
-                fontSize = 17.sp,
-                fontFamily = Poppins,
-                fontWeight = FontWeight.Normal
-            ),
-        )
-    }
-}

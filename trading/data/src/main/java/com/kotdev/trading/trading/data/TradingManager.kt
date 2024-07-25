@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentHashMap
 
 class TradingManager(
-    //private val coroutineScope: CoroutineScope,
     private val balanceDao: BalanceDao,
     private val historyDao: HistoryDao
 ) {
@@ -60,7 +59,7 @@ class TradingManager(
         }
     }
 
-    suspend fun getTrading(pair: String): TradingPair? {
+    fun getTrading(pair: String): TradingPair? {
         return if (tradingJobs.containsKey(pair)) {
             map.get(pair)
         } else {
@@ -68,7 +67,7 @@ class TradingManager(
         }
     }
 
-    suspend fun getActiveTrading(pair: String, closePrice: Float): TradingPair? {
+    fun getActiveTrading(pair: String, closePrice: Float): TradingPair? {
         return if (tradingJobs.containsKey(pair)) {
             println("getActiveTrading ${pair} with close price $closePrice")
             updateTradingPair(pair, closePrice)
@@ -77,7 +76,7 @@ class TradingManager(
         }
     }
 
-    suspend fun updateTradingPair(pair: String, closePrice: Float): TradingPair? {
+    private fun updateTradingPair(pair: String, closePrice: Float): TradingPair? {
         return map.get(pair)?.let { trading ->
             println("Trading update ${pair} with close price $closePrice")
             map.replace(

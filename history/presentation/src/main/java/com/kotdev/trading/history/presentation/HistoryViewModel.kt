@@ -45,6 +45,8 @@ class HistoryViewModel @Inject constructor(
     }
 
     override fun obtainEvent(viewEvent: Nothing) {
+
     }
+
 
 }

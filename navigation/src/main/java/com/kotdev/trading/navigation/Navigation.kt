@@ -15,7 +15,7 @@ import com.kotdev.trading.navigation.destination.trading
 
 
 @Composable
-fun generateGraph(activity: Activity) {
+fun GenerateGraph(activity: Activity) {
     val navController = rememberNavController()
     AppNavigator.addGraph(AppGraph.App.route, navController)
     NavHost(

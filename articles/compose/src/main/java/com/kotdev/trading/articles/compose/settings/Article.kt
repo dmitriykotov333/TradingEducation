@@ -37,47 +37,58 @@ import com.kotdev.trading.core_ui.theme.Poppins
 import com.kotdev.trading.core_ui.theme.Theme
 
 @Composable
-fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel()
+internal fun Article(
+    item: Articles,
+    onClick: () -> Unit
 ) {
-    val state by viewModel.states().collectAsState()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        Modifier
+            .bounceClick(from = 0.95f)
+            .fillMaxWidth()
+            .height(93.dp)
+            .background(
+                color = item.color, RoundedCornerShape(10.dp)
+            ).noRippleClickable {
+                onClick()
+            },
     ) {
-        HeaderContent {
-            viewModel.obtainEvent(SettingsEvent.BackClick)
-        }
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(
-                top = 15.dp, bottom = 90.dp, start = 15.dp, end = 15.dp
-            ), verticalArrangement = Arrangement.spacedBy(
-                15.dp
-            )
+        AsyncImage(
+            modifier = Modifier.align(Alignment.CenterEnd).height(95.dp).padding(end = 1.dp),
+            model = item.background,
+            contentDescription = item.background.toString(),
+            contentScale = ContentScale.Fit,
+        )
+        Column(
+            modifier = Modifier.align(Alignment.CenterStart).padding(20.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start
         ) {
-            itemsIndexed(
-                items = state.items,
-                key = { index, item ->
-                    item.title
-                },
-                itemContent = { index, item ->
-                    Article(item) {
-                        viewModel.obtainEvent(SettingsEvent.ItemClick(index))
-                    }
-                }
+
+            Text(
+                modifier = Modifier,
+                text = stringResource(item.title),
+                style = TextStyle(
+                    color = Theme.colors.neutralWhite,
+                    lineHeight = 27.sp,
+                    fontSize = 18.sp,
+                    fontFamily = Poppins,
+                    fontWeight = FontWeight.Bold
+                ),
             )
+            if (item.description != null) {
+                Text(
+                    modifier = Modifier,
+                    text = stringResource(item.description!!),
+                    style = TextStyle(
+                        color = Theme.colors.neutralWhite,
+                        lineHeight = 18.sp,
+                        fontSize = 12.sp,
+                        fontFamily = Poppins,
+                        fontWeight = FontWeight.Light
+                    ),
+                )
+            }
         }
+
     }
 }
-
-
-
-
-
-
-
-
-
