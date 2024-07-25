@@ -1,6 +1,6 @@
 package com.kotdev.trading.trading.presentation
 
-import TradingType
+import com.kotdev.trading.trading.model.entities.TradingType
 
 
 sealed class TradingEvent {

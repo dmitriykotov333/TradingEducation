@@ -1,15 +1,16 @@
 package com.kotdev.trading.trading.presentation
 
-import BasePair
+import com.kotdev.trading.trading.model.SessionManager
+import com.kotdev.trading.trading.model.entities.BasePair
 import com.github.mikephil.charting.data.LineData
 import com.kotdev.trading.BalanceDBO
-import com.kotdev.trading.BalanceDao
 import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.core.Utils
 import com.kotdev.trading.core.viewmodel.BaseViewModel
-import com.kotdev.trading.trading.data.SessionManager
+import com.kotdev.trading.core_ui.R
 import com.kotdev.trading.trading.data.preferences.LocalePreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
+import com.kotdev.trading.trading.model.entities.EventTrading
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +30,7 @@ class TradingViewModel @Inject constructor(
         balance = 5000f,
         pairs = persistentListOf(),
         pair = BasePair(
-            icon = com.kotdev.trading.core_ui.R.drawable.usd_eur,
+            icon = R.drawable.usd_eur,
             pair = Utils.USD_EUR,
             currentPrice = 0f,
             percent = 0f,
@@ -52,7 +53,6 @@ class TradingViewModel @Inject constructor(
         }
         coroutineScope.launch {
             sessionManager.collectPair().collectLatest {
-
                 viewState = viewState.copy(
                     pairs = it.toImmutableList(),
                 )
@@ -135,12 +135,10 @@ class TradingViewModel @Inject constructor(
 
             is TradingEvent.RefreshBalanceClick -> {
                 if (viewState.balance < 1000) {
-                    coroutineScope.launch {
-                        withContext(Dispatchers.IO) {
-                            val balance = balanceDao
-                            balance.clean()
-                            balance.insert(BalanceDBO(3000.0))
-                        }
+                    coroutineScope.launch(Dispatchers.IO) {
+                        val balance = balanceDao
+                        balance.clean()
+                        balance.insert(BalanceDBO(3000.0))
                     }
                 } else {
                     viewAction =

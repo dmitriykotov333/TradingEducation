@@ -1,8 +1,8 @@
 package com.kotdev.trading.trading.data
 
 
-import TradingPair
-import TradingType
+import com.kotdev.trading.trading.model.entities.TradingPair
+import com.kotdev.trading.trading.model.entities.TradingType
 import com.kotdev.trading.BalanceDBO
 import com.kotdev.trading.BalanceDao
 import com.kotdev.trading.HistoryDBO

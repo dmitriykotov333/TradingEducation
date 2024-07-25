@@ -1,3 +1,5 @@
+package com.kotdev.trading.trading.model.entities
+
 import androidx.compose.runtime.Immutable
 
 @Immutable

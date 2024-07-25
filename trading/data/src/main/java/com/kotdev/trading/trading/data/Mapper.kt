@@ -1,11 +1,11 @@
 package com.kotdev.trading.trading.data
 
-import BasePair
-import BaseSessionPair
+import com.kotdev.trading.trading.model.entities.BasePair
+import com.kotdev.trading.trading.model.entities.BaseSessionPair
 import HistoryItem
-import PairItem
-import TradingPair
-import TradingType
+import com.kotdev.trading.trading.model.entities.PairItem
+import com.kotdev.trading.trading.model.entities.TradingPair
+import com.kotdev.trading.trading.model.entities.TradingType
 import com.kotdev.trading.HistoryDBO
 import com.kotdev.trading.PairDBO
 import com.kotdev.trading.core.Utils.USD_CAD
@@ -16,6 +16,7 @@ import com.kotdev.trading.core.Utils.USD_NZD
 import com.kotdev.trading.core.extensions.dateToFormat
 import com.kotdev.trading.core.extensions.dateToFormatDialog
 import com.kotdev.trading.core.extensions.longToDateFormat
+import com.kotdev.trading.core_ui.R
 import java.util.Calendar
 import java.util.Date
 
@@ -99,12 +100,12 @@ fun TradingPair.mapToUIFinish(): HistoryItem {
 fun PairDBO.mapToPairUI(): PairItem {
     return PairItem(
         icon = when (pair) {
-            USD_EUR -> com.kotdev.trading.core_ui.R.drawable.usd_eur
-            USD_JPY -> com.kotdev.trading.core_ui.R.drawable.usd_py
-            USD_CHF -> com.kotdev.trading.core_ui.R.drawable.usd_chf
-            USD_CAD -> com.kotdev.trading.core_ui.R.drawable.usd_cad
-            USD_NZD -> com.kotdev.trading.core_ui.R.drawable.usd_nzd
-            else -> com.kotdev.trading.core_ui.R.drawable.usd_eur
+            USD_EUR -> R.drawable.usd_eur
+            USD_JPY -> R.drawable.usd_py
+            USD_CHF -> R.drawable.usd_chf
+            USD_CAD -> R.drawable.usd_cad
+            USD_NZD -> R.drawable.usd_nzd
+            else -> R.drawable.usd_eur
         },
         name = pair,
         value = value.toFloat()

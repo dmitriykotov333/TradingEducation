@@ -1,5 +1,6 @@
 package com.kotdev.trading.trading.data
 
+import com.kotdev.trading.trading.model.SessionManager
 import android.content.Context
 import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.trading.data.preferences.LocalePreferences
@@ -25,7 +26,7 @@ object TradingModule {
     fun provideSessionManager(
         database: TradingDatabase
     ): SessionManager {
-        return SessionManager(database.balanceDao, database.pairDao, database.historyDao)
+        return SessionManagerImpl(database.balanceDao, database.pairDao, database.historyDao)
     }
 
 

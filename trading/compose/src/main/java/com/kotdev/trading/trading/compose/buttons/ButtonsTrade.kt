@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kotdev.trading.trading.presentation.TradingEvent
+import com.kotdev.trading.trading.model.entities.TradingType
 
 @Composable
 fun ButtonsTrade(

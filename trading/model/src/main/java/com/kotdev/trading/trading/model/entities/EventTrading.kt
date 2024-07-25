@@ -1,3 +1,6 @@
+package com.kotdev.trading.trading.model.entities
+
+import HistoryItem
 import androidx.compose.runtime.Immutable
 
 @Immutable

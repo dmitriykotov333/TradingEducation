@@ -1,8 +1,8 @@
 package com.kotdev.trading.trading.presentation
 
-import BasePair
-import PairItem
-import TradingPair
+import com.kotdev.trading.trading.model.entities.BasePair
+import com.kotdev.trading.trading.model.entities.PairItem
+import com.kotdev.trading.trading.model.entities.TradingPair
 import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 

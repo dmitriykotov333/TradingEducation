@@ -1,6 +1,6 @@
 package com.kotdev.trading.trading.compose.contents
 
-import PairItem
+import com.kotdev.trading.trading.model.entities.PairItem
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
