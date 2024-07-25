@@ -1,13 +1,13 @@
 # Trading Education | Kodein + Voyager
 
+### There are various implementations
+
+1. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/master">Dagger Hilt + Compose Navigation</a>
+2. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/kodein%2Bvoyager">Kodein + Voyager</a>
+
 This project is a fully functional Android app built entirely with Kotlin and Jetpack Compose. It follows Android design and development best practices and might be useful and interesting to someon reference for developers.
 
 It is a work in progress 🚧.
-
-### There are various implementations
-
-1. Dagger Hilt + Compose Navigation
-2. Kodein + Voyager
 
 ### Libraries and Tools
 
