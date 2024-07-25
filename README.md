@@ -4,8 +4,8 @@ This project is a fully functional Android app built entirely with Kotlin and Je
 
 ### There are various implementations
 
-1. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/master">Dagger Hilt + Compose Navigation</a> :white_check_mark:
-2. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/kodein%2Bvoyager">Kodein + Voyager</a>
+1. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/master">Dagger Hilt + Compose Navigation</a>  
+2. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/kodein%2Bvoyager">Kodein + Voyager</a> :white_check_mark:
 
 It is a work in progress 🚧.
 
