@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -42,30 +43,25 @@ import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.kotdev.trading.core.extensions.chartFormatFloat
 import com.kotdev.trading.core_ui.R
 import com.kotdev.trading.core_ui.theme.Theme
+import com.kotdev.trading.trading.model.entities.Coordinate
+import com.kotdev.trading.trading.presentation.TradingViewModel
 import com.kotdev.trading.trading.presentation.TradingViewState
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
-@Immutable
-data class Coordinate(
-    val x: Float,
-    val y: Float,
-    val value: Float
-)
-
 @Composable
 fun ColumnScope.GraphContent(
     state: TradingViewState,
+    lineChart: (LineChart) -> Unit
 ) {
-    var coordinate by remember {
-        mutableStateOf(Coordinate(774f, 0f, 0f))
-    }
 
     val lineData by rememberUpdatedState(state.pair.lineData)
     var sizeDp by remember {
@@ -95,21 +91,19 @@ fun ColumnScope.GraphContent(
             factory = { context ->
                 LineChart(context).apply {
                     setupChart()
+                    lineChart(this)
                 }
             },
             update = { view ->
 
                 if (lineData.entryCount > 0) {
                     view.data = lineData
-                    val entry: Entry = view.data.dataSets.last()
-                        .getEntryForIndex(view.data.dataSets.last().entryCount - 1)
                     adjustXAxis(view)
 
                     view.axisRight.apply {
-
                         granularity = .001f
-                        axisMinimum = entry.y - 0.01f
-                        axisMaximum = entry.y + 0.01f
+                        axisMinimum = getMinEntryCountSet(view).yMin - view.calcValue()
+                        axisMaximum = view.data.maxEntryCountSet.yMax + view.calcValue()
                         removeAllLimitLines()
                         if (state.tradingPair?.openPrice != null) {
                             val ll = LimitLine(state.tradingPair!!.openPrice)
@@ -119,33 +113,32 @@ fun ColumnScope.GraphContent(
                         }
                     }
 
-                    val positionY = view.getPosition(
-                        entry,
-                        YAxis.AxisDependency.RIGHT
-                    ).y
-                    val positionX = view.getPosition(
-                        entry,
-                        YAxis.AxisDependency.RIGHT
-                    ).x
-                    val y = if (positionY > 0) {
-                        positionY.toInt() - 20.dp.value
-                    } else {
-                        coordinate.y
-                    }
-                    coordinate = Coordinate(
-                        x = positionX,
-                        value = entry.y,
-                        y = y
-                    )
                 }
             }
         )
-        CustomMarkerContent(coordinate, sizeDp)
+        CustomMarkerContent(state.pair.coordinate, sizeDp)
     }
 
 }
 
-fun LineChart.setupChart() {
+private fun LineChart.calcValue(): Float {
+    return if (getMinEntryCountSet(this).yMin < 1) {
+        0.01f
+    } else {
+        this.data.maxEntryCountSet.yMax
+    }
+}
+
+private fun getMinEntryCountSet(chart: LineChart): ILineDataSet {
+    var min = chart.data.dataSets.get(0)
+    chart.data.dataSets.forEach {
+        if (it.getEntryCount() > min.getEntryCount())
+            min = it
+    }
+    return min
+}
+
+private fun LineChart.setupChart() {
     setTouchEnabled(false)
     isDragEnabled = false
     setScaleEnabled(false)
@@ -188,14 +181,14 @@ fun LineChart.setupChart() {
     }
 }
 
-fun adjustXAxis(chart: LineChart) {
+private fun adjustXAxis(chart: LineChart) {
     val xAxis = chart.xAxis
     chart.setVisibleXRangeMaximum(20f)
     chart.moveViewToX(chart.data.entryCount.toFloat() + 300f)
 }
 
 
-class DayAxisValueFormatter : ValueFormatter() {
+private class DayAxisValueFormatter : ValueFormatter() {
 
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         return SimpleDateFormat(
@@ -207,7 +200,7 @@ class DayAxisValueFormatter : ValueFormatter() {
 }
 
 @Composable
-fun BoxScope.CustomMarkerContent(coordinate: Coordinate, sizeDp: Size) {
+private fun BoxScope.CustomMarkerContent(coordinate: Coordinate, sizeDp: Size) {
     Box(
         modifier = Modifier
             .align(Alignment.TopEnd)
@@ -216,68 +209,70 @@ fun BoxScope.CustomMarkerContent(coordinate: Coordinate, sizeDp: Size) {
             }
             .drawWithCache {
                 this.onDrawBehind {
-                    drawLine(
-                        color = Color(0xFF00E5E5),
-                        start = Offset(
-                            coordinate.x - sizeDp.width + 10.dp.toPx(),
-                            sizeDp.height - coordinate.y.toFloat()
-                        ),
-                        end = Offset(coordinate.x - sizeDp.width + 10.dp.toPx(), 10.dp.toPx()),
-                        strokeWidth = 1.dp.toPx()
-                    )
-                    val coordX = coordinate.x - sizeDp.width + 7.dp.toPx()
-
-                    drawLine(
-                        color = Color(0xFF00E5E5),
-                        start = Offset(
-                            if (coordX < 0) {
-                                coordX
-                            } else {
-                                0f
-                            }, 7.dp.toPx()
-                        ),
-                        end = Offset(10.dp.toPx(), 7.dp.toPx()),
-                        strokeWidth = 1.3.dp.toPx()
-                    )
-
-
-                    val path = Path().apply {
-                        moveTo(size.width * 0.2f, 0f)
-                        lineTo(0f, size.height / 2)
-                        lineTo(size.width * 0.2f, size.height)
-                        lineTo(size.width/* * 1.2f*/, size.height)
-                        lineTo(size.width/* * 1.2f*/, 0f)
-                        close()
-                    }
-                    drawPath(
-                        path = path,
-                        color = Color(0xFF23D0B2),
-                        style = Fill
-                    )
-
-                    val pathCircle = Path().apply {
-                        val size = 12.dp.toPx()
-                        addOval(Rect(0f, 0f, size, size))
-                        op(
-                            path1 = this,
-                            path2 = Path().apply {
-                                addOval(
-                                    Rect(0f, 0f, size * (1 - 1f), size * (1 - 1f))
-                                )
-                                translate(Offset(size * 1f / 2, size * 1f / 2))
-                            },
-                            operation = PathOperation.Difference
+                    if (coordinate.y != -1f) {
+                        drawLine(
+                            color = Color(0xFF00E5E5),
+                            start = Offset(
+                                coordinate.x - sizeDp.width + 10.dp.toPx(),
+                                sizeDp.height - coordinate.y
+                            ),
+                            end = Offset(coordinate.x - sizeDp.width + 10.dp.toPx(), 10.dp.toPx()),
+                            strokeWidth = 1.dp.toPx()
                         )
-                        translate(Offset(coordinate.x - sizeDp.width + 4.dp.toPx(), 5f))
+                        val coordX = coordinate.x - sizeDp.width + 7.dp.toPx()
+
+                        drawLine(
+                            color = Color(0xFF00E5E5),
+                            start = Offset(
+                                if (coordX < 0) {
+                                    coordX
+                                } else {
+                                    0f
+                                }, 7.dp.toPx()
+                            ),
+                            end = Offset(10.dp.toPx(), 7.dp.toPx()),
+                            strokeWidth = 1.3.dp.toPx()
+                        )
+
+
+                        val path = Path().apply {
+                            moveTo(size.width * 0.2f, 0f)
+                            lineTo(0f, size.height / 2)
+                            lineTo(size.width * 0.2f, size.height)
+                            lineTo(size.width, size.height)
+                            lineTo(size.width, 0f)
+                            close()
+                        }
+                        drawPath(
+                            path = path,
+                            color = Color(0xFF23D0B2),
+                            style = Fill
+                        )
+
+                        val pathCircle = Path().apply {
+                            val size = 12.dp.toPx()
+                            addOval(Rect(0f, 0f, size, size))
+                            op(
+                                path1 = this,
+                                path2 = Path().apply {
+                                    addOval(
+                                        Rect(0f, 0f, size * (1 - 1f), size * (1 - 1f))
+                                    )
+                                    translate(Offset(size * 1f / 2, size * 1f / 2))
+                                },
+                                operation = PathOperation.Difference
+                            )
+                            translate(Offset(coordinate.x - sizeDp.width + 4.dp.toPx(), 5f))
+                        }
+                        drawPath(pathCircle, Color.White)
                     }
-                    drawPath(pathCircle, Color.White)
                 }
             }
             .padding(top = 1.dp, bottom = 1.dp, start = 17.dp, end = 3.dp)
 
     ) {
         Text(
-            modifier = Modifier.padding(end = 13.dp),
+            modifier = Modifier.padding(end = 12.dp),
             textAlign = TextAlign.Start,
             text = coordinate.value.chartFormatFloat(),
             color = Color(0xFF323234),

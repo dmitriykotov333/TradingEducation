@@ -24,9 +24,15 @@ object TradingModule {
     @Provides
     @Singleton
     fun provideSessionManager(
+        @ApplicationContext context: Context,
         database: TradingDatabase
     ): SessionManager {
-        return SessionManagerImpl(database.balanceDao, database.pairDao, database.historyDao)
+        return SessionManagerImpl(
+            context,
+            database.balanceDao,
+            database.pairDao,
+            database.historyDao
+        )
     }
 
 

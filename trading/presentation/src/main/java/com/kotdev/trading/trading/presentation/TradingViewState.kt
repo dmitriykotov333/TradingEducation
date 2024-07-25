@@ -4,6 +4,7 @@ import com.kotdev.trading.trading.model.entities.BasePair
 import com.kotdev.trading.trading.model.entities.PairItem
 import com.kotdev.trading.trading.model.entities.TradingPair
 import androidx.compose.runtime.Immutable
+import com.kotdev.trading.trading.model.entities.Coordinate
 import kotlinx.collections.immutable.ImmutableList
 
 

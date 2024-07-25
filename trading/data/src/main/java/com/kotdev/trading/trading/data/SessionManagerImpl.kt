@@ -1,5 +1,6 @@
 package com.kotdev.trading.trading.data
 
+import android.content.Context
 import com.kotdev.trading.trading.model.SessionManager
 import com.kotdev.trading.trading.model.entities.BasePair
 import com.kotdev.trading.trading.model.entities.BaseSessionPair
@@ -38,6 +39,7 @@ import kotlin.random.Random
 
 @Singleton
 class SessionManagerImpl @Inject constructor(
+    private val context: Context,
     private val balanceDao: BalanceDao,
     private val pairDao: PairDao,
     private val historyDao: HistoryDao

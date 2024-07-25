@@ -1,14 +1,22 @@
 package com.kotdev.trading.trading.presentation
 
+import androidx.compose.ui.unit.dp
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.components.YAxis.AxisDependency
+import com.github.mikephil.charting.data.Entry
 import com.kotdev.trading.trading.model.SessionManager
 import com.kotdev.trading.trading.model.entities.BasePair
 import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.renderer.AxisRenderer
+import com.github.mikephil.charting.utils.MPPointF
 import com.kotdev.trading.BalanceDBO
 import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.core.Utils
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 import com.kotdev.trading.core_ui.R
 import com.kotdev.trading.trading.data.preferences.LocalePreferences
+import com.kotdev.trading.trading.model.entities.Coordinate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.kotdev.trading.trading.model.entities.EventTrading
 import kotlinx.collections.immutable.persistentListOf
@@ -40,6 +48,7 @@ class TradingViewModel @Inject constructor(
 ) {
 
     private val balanceDao = database.balanceDao
+    var lineChart: LineChart? = null
 
     init {
         coroutineScope.launch {
@@ -65,7 +74,44 @@ class TradingViewModel @Inject constructor(
         }
         coroutineScope.launch {
             sessionManager.activePair().collectLatest {
-                viewState = viewState.copy(pair = it)
+                if (lineChart != null) {
+                    if (lineChart!!.data != null) {
+                        val entry: Entry = it.lineData.dataSets.last()
+                            .getEntryForIndex(it.lineData.dataSets.last().entryCount - 1)
+                        val positionY = lineChart!!.getPosition(
+                            entry,
+                            AxisDependency.RIGHT
+                        ).y
+                        val positionX = lineChart!!.getPosition(
+                            entry,
+                            AxisDependency.RIGHT
+                        ).x
+
+                        val y = if (positionY > 0) {
+                            positionY.toInt() - 20.dp.value
+                        } else {
+                            it.coordinate.y
+                        }
+                        viewState = viewState.copy(
+                            pair = it.copy(
+                                coordinate = Coordinate(
+                                    x = positionX,
+                                    value = entry.y,
+                                    y = y
+                                )
+                            )
+                        )
+                    } else {
+                        viewState = viewState.copy(
+                            pair = it
+                        )
+                    }
+
+                }else {
+                    viewState = viewState.copy(
+                        pair = it
+                    )
+                }
             }
         }
         coroutineScope.launch {

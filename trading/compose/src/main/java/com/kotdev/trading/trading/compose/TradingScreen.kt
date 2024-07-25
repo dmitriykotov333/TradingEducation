@@ -51,6 +51,7 @@ import com.kotdev.trading.trading.compose.dialog.InfoPopUp
 import com.kotdev.trading.trading.presentation.TradingAction
 import com.kotdev.trading.trading.presentation.TradingEvent
 import com.kotdev.trading.trading.presentation.TradingViewModel
+import com.kotdev.trading.trading.presentation.TradingViewState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
@@ -78,38 +79,16 @@ fun TradingScreen(
         Spacer(modifier = Modifier.height(10.dp))
         RatePairContent(state = states)
         Spacer(modifier = Modifier.height(10.dp))
-        GraphContent(state = states)
+        GraphContent(state = states) {
+            viewModel.lineChart = it
+        }
         Spacer(modifier = Modifier.height(5.dp))
         ProgressTradeContent(
             progress = states.pair.progress!!,
             eventHandler = viewModel::obtainEvent
         )
         Spacer(modifier = Modifier.height(5.dp))
-        if (states.tradingPair != null) {
-            if (states.tradingPair!!.pair == states.pair.pair) {
-                ActiveTrade(
-                    state = states,
-                    onStop = {
-                        viewModel.obtainEvent(
-                            TradingEvent.TradingStop(
-                                states.pair.pair,
-                                states.tradingPair!!.closePrice
-                            )
-                        )
-                    }
-                )
-            } else {
-                ButtonsTrade(
-                    pair = states.pair.pair,
-                    eventHandler = viewModel::obtainEvent
-                )
-            }
-        } else {
-            ButtonsTrade(
-                pair = states.pair.pair,
-                eventHandler = viewModel::obtainEvent
-            )
-        }
+        Trading(states, viewModel::obtainEvent)
         Spacer(modifier = Modifier.height(5.dp))
         PairListContent(items = states.pairs, eventHandler = viewModel::obtainEvent)
         Spacer(modifier = Modifier.height(10.dp))
@@ -122,7 +101,39 @@ fun TradingScreen(
 }
 
 @Composable
-fun TradingAction(activity: Activity, viewModel: TradingViewModel) {
+internal fun Trading(
+    states: TradingViewState,
+    eventHandler: (TradingEvent) -> Unit
+) {
+    if (states.tradingPair != null) {
+        if (states.tradingPair!!.pair == states.pair.pair) {
+            ActiveTrade(
+                state = states,
+                onStop = {
+                    eventHandler(
+                        TradingEvent.TradingStop(
+                            states.pair.pair,
+                            states.tradingPair!!.closePrice
+                        )
+                    )
+                }
+            )
+        } else {
+            ButtonsTrade(
+                pair = states.pair.pair,
+                eventHandler = eventHandler
+            )
+        }
+    } else {
+        ButtonsTrade(
+            pair = states.pair.pair,
+            eventHandler = eventHandler
+        )
+    }
+}
+
+@Composable
+internal fun TradingAction(activity: Activity, viewModel: TradingViewModel) {
 
     val context = LocalContext.current
 
