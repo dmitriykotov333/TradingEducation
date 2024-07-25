@@ -1,4 +1,4 @@
-# Trading Education
+# Trading Education | Kodein + Voyager
 
 This project is a fully functional Android app built entirely with Kotlin and Jetpack Compose. It follows Android design and development best practices and might be useful and interesting to someon reference for developers.
 
