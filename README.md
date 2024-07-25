@@ -1,6 +1,11 @@
-# Trading Education
+# Trading Education  
 
 This project is a fully functional Android app built entirely with Kotlin and Jetpack Compose. It follows Android design and development best practices and might be useful and interesting to someon reference for developers.
+
+### There are various implementations
+
+1. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/master">Dagger Hilt + Compose Navigation</a>
+2. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/kodein%2Bvoyager">Kodein + Voyager</a>
 
 It is a work in progress 🚧.
 
