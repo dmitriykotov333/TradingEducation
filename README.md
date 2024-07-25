@@ -4,7 +4,7 @@ This project is a fully functional Android app built entirely with Kotlin and Je
 
 ### There are various implementations
 
-1. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/master">Dagger Hilt + Compose Navigation</a>
+1. $${\color{<a href="https://github.com/dmitriykotov333/TradingEducation/tree/master">Dagger Hilt + Compose Navigation</a>}Light \space Green}$$  
 2. <a href="https://github.com/dmitriykotov333/TradingEducation/tree/kodein%2Bvoyager">Kodein + Voyager</a>
 
 It is a work in progress 🚧.
@@ -12,14 +12,14 @@ It is a work in progress 🚧.
 ### Libraries and Tools
 
 - Jetpack Compose
-- Hilt
+- Kodein
 - Room
 - DataStore
 - Ktor (with a deserializer for another API)
 - Coroutines
 - Coil
 - MPChart
-- Compose Navigation
+- Voyager Navigation
 - Convention gradle plugin
 
 
