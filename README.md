@@ -4,6 +4,11 @@ This project is a fully functional Android app built entirely with Kotlin and Je
 
 It is a work in progress 🚧.
 
+### There are various implementations
+
+1. Dagger Hilt + Compose Navigation
+2. Kodein + Voyager
+
 ### Libraries and Tools
 
 - Jetpack Compose
