@@ -1,6 +1,7 @@
 plugins {
     id("kotdev.core.ui")
     id("kotdev.android.library")
+    id("kotdev.android.kodein")
     id("kotdev.navigation")
 }
 

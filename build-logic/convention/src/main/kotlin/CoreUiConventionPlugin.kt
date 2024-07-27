@@ -18,7 +18,6 @@ class CoreUiConventionPlugin : Plugin<Project> {
             dependencies {
                 add("api", project(":core_ui"))
                 add("api", libs.findLibrary("android-lifecycle-viewmodel").get())
-                add("api", libs.findLibrary("android-hilt-navigation").get())
             }
         }
     }

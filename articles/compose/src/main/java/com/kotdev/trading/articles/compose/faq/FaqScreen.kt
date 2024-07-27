@@ -35,8 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kotdev.trading.articles.presentation.SettingsEvent
 import com.kotdev.trading.articles.presentation.SettingsViewModel
 import com.kotdev.trading.core.FaqItem
@@ -45,7 +44,7 @@ import com.kotdev.trading.core_ui.theme.Theme
 
 @Composable
 fun FaqScreen(
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = viewModel()
 ) {
     val state by viewModel.states().collectAsState()
     Column(

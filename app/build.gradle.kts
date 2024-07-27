@@ -1,7 +1,7 @@
 plugins {
     id("kotdev.android.application")
     id("kotdev.android.application.compose")
-    id("kotdev.android.hilt")
+    id("kotdev.android.kodein")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -60,10 +60,12 @@ composeCompiler {
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 dependencies {
+    implementation(project(":platform"))
     implementation(project(":core"))
     implementation(project(":core_ui"))
     implementation(project(":navigation"))
     implementation(project(":trading:data"))
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.android.coil.compose)
     testImplementation(libs.junit)

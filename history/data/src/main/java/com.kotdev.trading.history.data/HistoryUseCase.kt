@@ -2,17 +2,17 @@ package com.kotdev.trading.history.data
 
 import HistoryItem
 import com.kotdev.trading.HistoryDBO
+import com.kotdev.trading.HistoryDao
+import com.kotdev.trading.core.di.Inject
 import com.kotdev.trading.core.extensions.dateToFormat
 import com.kotdev.trading.core.extensions.longToDateFormat
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import java.util.Date
-import javax.inject.Inject
 
-@ViewModelScoped
-class HistoryUseCase @Inject constructor(
-    private val repository: HistoryRepository
-) {
+
+class HistoryUseCase {
+
+    private val repository = Inject.instance<HistoryRepository>()
 
     suspend fun getProfit() = repository.getProfit()
 

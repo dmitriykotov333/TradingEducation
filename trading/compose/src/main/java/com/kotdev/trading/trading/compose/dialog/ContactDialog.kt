@@ -52,7 +52,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kotdev.trading.core_ui.R
 import com.kotdev.trading.core_ui.modifiers.bounceClick
 import com.kotdev.trading.core_ui.modifiers.noRippleClickable
@@ -71,7 +71,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun ContactDialog(
-    viewModel: ContactViewModel = hiltViewModel(),
+    viewModel: ContactViewModel = viewModel(),
     setShowDialog: (Boolean) -> Unit,
 ) {
     val states by viewModel.states().collectAsState()

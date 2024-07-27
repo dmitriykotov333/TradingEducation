@@ -1,24 +1,24 @@
 package com.kotdev.trading.splash.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.kotdev.trading.core.di.Inject
 import com.kotdev.trading.core.navigation.AppGraph
 import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 import com.kotdev.trading.service.api.ApiResult
 import com.kotdev.trading.service.api.ServiceRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SplashViewModel @Inject constructor(
-    private val serviceRepository: ServiceRepository,
-) : BaseViewModel<SplashViewState, Nothing, Nothing>(
+
+class SplashViewModel : BaseViewModel<SplashViewState, Nothing, Nothing>(
     initialState = SplashViewState()
 ) {
+
+    private val serviceRepository = Inject.instance<ServiceRepository>()
+
     override fun obtainEvent(viewEvent: Nothing) = Unit
 
     private var job: Job? = null

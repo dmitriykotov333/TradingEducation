@@ -5,11 +5,9 @@ import com.kotdev.trading.core.navigation.AppGraph
 import com.kotdev.trading.core.navigation.AppGraph.App.invoke
 import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core.viewmodel.BaseViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(): BaseViewModel<SettingsViewState, Nothing, SettingsEvent>(
+
+class SettingsViewModel: BaseViewModel<SettingsViewState, Nothing, SettingsEvent>(
     initialState = SettingsViewState(
         items = Settings.articles,
         faqs = Settings.faqs

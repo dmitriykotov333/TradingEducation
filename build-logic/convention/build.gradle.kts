@@ -54,9 +54,9 @@ gradlePlugin {
             id = "kotdev.navigation"
             implementationClass = "AndroidNavConventionPlugin"
         }
-        register("androidHilt") {
-            id = "kotdev.android.hilt"
-            implementationClass = "AndroidHiltConventionPlugin"
+        register("androidKodein") {
+            id = "kotdev.android.kodein"
+            implementationClass = "AndroidKodeinConventionPlugin"
         }
 
         register("androidRoom") {

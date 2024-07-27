@@ -1,23 +1,21 @@
 package com.kotdev.trading.history.presentation
 
+import com.kotdev.trading.core.di.Inject
 import com.kotdev.trading.core.extensions.chartFormatFloat
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 import com.kotdev.trading.history.data.HistoryUseCase
 import com.kotdev.trading.history.data.mapToUI
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HistoryViewModel @Inject constructor(
-    private val historyUseCase: HistoryUseCase,
-) : BaseViewModel<HistoryViewState, Nothing, Nothing>(
+
+class HistoryViewModel: BaseViewModel<HistoryViewState, Nothing, Nothing>(
     initialState = HistoryViewState()
 ) {
 
+    private val historyUseCase = Inject.instance<HistoryUseCase>()
 
     val historyPagingSource = historyUseCase
         .call()

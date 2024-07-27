@@ -1,6 +1,5 @@
 plugins {
     id("kotdev.android.library")
-    id("kotdev.android.hilt")
 }
 
 android {

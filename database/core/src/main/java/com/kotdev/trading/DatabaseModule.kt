@@ -1,22 +1,23 @@
 package com.kotdev.trading
 
-import android.content.Context
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import androidx.room.Room
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.eagerSingleton
+import org.kodein.di.instance
+import java.util.Collections.singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
 
-    @Provides
-    @Singleton
-    fun provideTradingDatabase(
-        @ApplicationContext context: Context
-    ): TradingDatabase {
-        return TradingDatabase(context)
-    }
+val databaseModule = DI.Module("databaseModule") {
+
+    bind<TradingDatabase> { eagerSingleton {
+        TradingDatabase(
+            Room.databaseBuilder(
+                instance(),
+                TradingRoomDatabase::class.java,
+                "trading"
+            ).build()
+        )
+    } }
+
 }

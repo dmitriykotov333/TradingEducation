@@ -35,9 +35,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
-import com.kotdev.trading.core.extensions.chartFormatFloat
 import com.kotdev.trading.core.navigation.AppGraph
 import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core_ui.component.HeaderContent
@@ -45,13 +42,16 @@ import com.kotdev.trading.core_ui.theme.Poppins
 import com.kotdev.trading.core_ui.theme.Theme
 import HistoryItem
 import androidx.compose.foundation.layout.BoxScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kotdev.trading.history.presentation.HistoryViewModel
 
 
 @Composable
 fun HistoryScreen(
-    viewModel: HistoryViewModel = hiltViewModel(),
+    viewModel: HistoryViewModel = viewModel(),
 ) {
+
+
     val paging by viewModel.historyPagingSource.collectAsState()
 
     val states by viewModel.states().collectAsState()

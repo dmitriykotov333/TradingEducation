@@ -1,5 +1,6 @@
 plugins {
     id("kotdev.core.ui")
+    id("kotdev.android.kodein")
 }
 
 android {

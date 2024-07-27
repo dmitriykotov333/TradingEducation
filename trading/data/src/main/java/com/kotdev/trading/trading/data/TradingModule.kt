@@ -1,39 +1,20 @@
 package com.kotdev.trading.trading.data
 
-import com.kotdev.trading.trading.model.SessionManager
-import android.content.Context
-import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.trading.data.preferences.LocalePreferences
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
-
-@Module
-@InstallIn(SingletonComponent::class)
-object TradingModule {
-
-    @Provides
-    @Singleton
-    fun provideLocalePreferences(@ApplicationContext context: Context): LocalePreferences =
-        LocalePreferences(context)
+import com.kotdev.trading.trading.model.SessionManager
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.provider
+import org.kodein.di.singleton
 
 
-    @Provides
-    @Singleton
-    fun provideSessionManager(
-        @ApplicationContext context: Context,
-        database: TradingDatabase
-    ): SessionManager {
-        return SessionManagerImpl(
-            context,
-            database.balanceDao,
-            database.pairDao,
-            database.historyDao
-        )
+val tradingModule = DI.Module("tradingModule") {
+    bind<LocalePreferences>() with singleton {
+        LocalePreferences(instance())
     }
 
-
+    bind<SessionManager>() with singleton {
+        SessionManagerImpl(instance())
+    }
 }

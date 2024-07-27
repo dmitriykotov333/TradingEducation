@@ -1,12 +1,10 @@
 package com.kotdev.trading.service.data.di
 
 import com.kotdev.trading.core.Utils.API
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.DefaultRequest
+import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -14,26 +12,34 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
+import io.ktor.client.plugins.websocket.WebSockets
+import io.ktor.client.request.headers
+import io.ktor.serialization.WebsocketContentConverter
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import javax.inject.Singleton
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
-@Module
-@InstallIn(SingletonComponent::class)
-object KtorModule {
+val ktorModule = DI.Module("ktorModule") {
 
-    @Provides
-    @Singleton
-    fun provideJson() = Json {
-        isLenient = true
-        ignoreUnknownKeys = true
-        prettyPrint = true
-    }
 
-    @Provides
-    @Singleton
-    fun provideHttpClient(): HttpClient {
-        return HttpClient(CIO) {
+
+    bind<HttpClient>() with singleton {
+        HttpClient(CIO) {
+
+
+            install(ContentNegotiation) {
+                json(Json {
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                    prettyPrint = true
+                })
+            }
+
             install(Logging) {
                 logger = Logger.SIMPLE
                 level = LogLevel.ALL
@@ -58,6 +64,4 @@ object KtorModule {
             }
         }
     }
-
-
 }

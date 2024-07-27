@@ -2,17 +2,15 @@ package com.kotdev.trading.trading.data.preferences
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Singleton
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.kotdev.trading.core.Utils
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-@Singleton
+
 class LocalePreferences(
-    @ApplicationContext private val context: Context
+    private val context: Context
 ) {
 
     companion object {

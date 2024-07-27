@@ -28,6 +28,7 @@ rootProject.name = "Trading Education"
 include(":app")
 include(":appwrite")
 include(":core")
+include(":platform")
 include(":core_ui")
 include(":navigation")
 include(":database:core")

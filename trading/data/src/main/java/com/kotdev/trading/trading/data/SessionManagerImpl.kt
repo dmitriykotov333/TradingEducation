@@ -13,6 +13,7 @@ import com.kotdev.trading.BalanceDao
 import com.kotdev.trading.HistoryDao
 import com.kotdev.trading.PairDBO
 import com.kotdev.trading.PairDao
+import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.core.Utils
 import com.kotdev.trading.trading.data.extensions.addTradings
 import com.kotdev.trading.trading.data.extensions.calculateProgress
@@ -32,18 +33,17 @@ import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.random.Random
 
 
-@Singleton
-class SessionManagerImpl @Inject constructor(
-    private val context: Context,
-    private val balanceDao: BalanceDao,
-    private val pairDao: PairDao,
-    private val historyDao: HistoryDao
+
+class SessionManagerImpl(
+    private val database: TradingDatabase
 ) : SessionManager {
+
+    private val balanceDao = database.balanceDao
+    private val pairDao = database.pairDao
+    private val historyDao = database.historyDao
 
     private var pairJob: Job? = null
 

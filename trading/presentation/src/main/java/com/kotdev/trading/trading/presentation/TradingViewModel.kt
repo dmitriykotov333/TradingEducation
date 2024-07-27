@@ -2,38 +2,28 @@ package com.kotdev.trading.trading.presentation
 
 import androidx.compose.ui.unit.dp
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.kotdev.trading.trading.model.SessionManager
 import com.kotdev.trading.trading.model.entities.BasePair
 import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.renderer.AxisRenderer
-import com.github.mikephil.charting.utils.MPPointF
 import com.kotdev.trading.BalanceDBO
 import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.core.Utils
+import com.kotdev.trading.core.di.Inject
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 import com.kotdev.trading.core_ui.R
 import com.kotdev.trading.trading.data.preferences.LocalePreferences
 import com.kotdev.trading.trading.model.entities.Coordinate
-import dagger.hilt.android.lifecycle.HiltViewModel
 import com.kotdev.trading.trading.model.entities.EventTrading
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 import kotlin.system.exitProcess
 
-@HiltViewModel
-class TradingViewModel @Inject constructor(
-    private val localePreferences: LocalePreferences,
-    private val database: TradingDatabase,
-    private val sessionManager: SessionManager
-) : BaseViewModel<TradingViewState, TradingAction, TradingEvent>(
+class TradingViewModel : BaseViewModel<TradingViewState, TradingAction, TradingEvent>(
     initialState = TradingViewState(
         balance = 5000f,
         pairs = persistentListOf(),
@@ -46,6 +36,10 @@ class TradingViewModel @Inject constructor(
         ),
     )
 ) {
+
+    private val localePreferences = Inject.instance<LocalePreferences>()
+    private val database = Inject.instance<TradingDatabase>()
+    private val sessionManager = Inject.instance<SessionManager>()
 
     private val balanceDao = database.balanceDao
     var lineChart: LineChart? = null

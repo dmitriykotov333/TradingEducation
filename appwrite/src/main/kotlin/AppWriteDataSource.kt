@@ -2,15 +2,14 @@
 import api.AppWriteRepository
 import com.kotdev.trading.core.BasePair
 import com.kotdev.trading.core.BuildConfig
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.kotdev.trading.core.di.Inject
 import io.appwrite.models.Document
 import io.appwrite.services.Databases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-@ViewModelScoped
-class AppWriteDataSource @Inject constructor(
+
+class AppWriteDataSource(
     private val database: Databases
 ) : AppWriteRepository {
 

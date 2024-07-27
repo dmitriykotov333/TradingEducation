@@ -1,23 +1,21 @@
 package com.kotdev.trading.trading.presentation.contact
 
 import android.content.Context
+import com.kotdev.trading.core.di.Inject
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 import com.kotdev.trading.trading.presentation.contact.ContactAction
 import com.kotdev.trading.trading.presentation.contact.ContactEvent
 import com.kotdev.trading.trading.presentation.contact.ContactViewState
 import com.kotdev.trading.core_ui.R
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class ContactViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
-) : BaseViewModel<ContactViewState, ContactAction, ContactEvent>(
+
+class ContactViewModel : BaseViewModel<ContactViewState, ContactAction, ContactEvent>(
     initialState = ContactViewState()
 ) {
+
+    private val context = Inject.instance<Context>()
 
     override fun obtainEvent(viewEvent: ContactEvent) {
         when (viewEvent) {

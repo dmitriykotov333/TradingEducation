@@ -1,6 +1,6 @@
 plugins {
     id("kotdev.android.library")
-    id("kotdev.android.hilt")
+    id("kotdev.android.kodein")
     kotlin("plugin.serialization") version "2.0.0"
 }
 
@@ -13,8 +13,6 @@ dependencies {
     implementation(project(":appwrite"))
     api(project(":database:core"))
     implementation(libs.serialization.json)
-    implementation(libs.android.hilt)
-    kapt(libs.android.hilt.compiler)
     implementation(libs.android.coroutine)
     implementation(libs.android.ktor.core)
     implementation(libs.android.ktor.json)

@@ -6,8 +6,9 @@ import api.AppWriteRepository
 import com.kotdev.trading.service.api.ServiceRepository
 import com.kotdev.trading.service.api.models.Exchange
 import com.kotdev.trading.PairDao
+import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.core.BuildConfig
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.kotdev.trading.core.di.Inject
 import io.appwrite.models.Document
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -22,15 +23,16 @@ import com.kotdev.trading.service.mapper.mapToPair
 import com.kotdev.trading.service.mapper.mapToPairDBO
 import com.kotdev.trading.service.mapper.mapToPairs
 import java.util.Date
-import javax.inject.Inject
 
-@ViewModelScoped
-class KtorServiceDataSource @Inject constructor(
+
+class KtorServiceDataSource(
     private val httpClient: HttpClient,
-    private val pairDao: PairDao,
+    private val database: TradingDatabase,
     private val appWrite: AppWriteRepository
 ) : ServiceRepository {
 
+    private val pairDao = database.pairDao
+    
     private suspend fun getPairFromServer(): List<BasePair> {
         val rst = httpClient.request {
             url {

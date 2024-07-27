@@ -15,13 +15,3 @@ internal abstract class TradingRoomDatabase : RoomDatabase() {
     abstract fun pairDao(): PairDao
     abstract fun balanceDao(): BalanceDao
 }
-
-fun TradingDatabase(applicationContext: Context): TradingDatabase {
-    val newsRoomDatabase =
-        Room.databaseBuilder(
-            checkNotNull(applicationContext.applicationContext),
-            TradingRoomDatabase::class.java,
-            "trading"
-        ).build()
-    return TradingDatabase(newsRoomDatabase)
-}

@@ -19,11 +19,9 @@ import com.kotdev.trading.core.helpers.LocaleHelper
 import com.kotdev.trading.navigation.GenerateGraph
 import com.kotdev.trading.viewModel.MainAction
 import com.kotdev.trading.viewModel.MainViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
