@@ -61,7 +61,7 @@ class TradingManager(
 
     fun getTrading(pair: String): TradingPair? {
         return if (tradingJobs.containsKey(pair)) {
-            map.get(pair)
+            map[pair]
         } else {
             null
         }
@@ -69,7 +69,7 @@ class TradingManager(
 
     fun getActiveTrading(pair: String, closePrice: Float): TradingPair? {
         return if (tradingJobs.containsKey(pair)) {
-            println("getActiveTrading ${pair} with close price $closePrice")
+            println("getActiveTrading $pair with close price $closePrice")
             updateTradingPair(pair, closePrice)
         } else {
             null
@@ -77,19 +77,9 @@ class TradingManager(
     }
 
     private fun updateTradingPair(pair: String, closePrice: Float): TradingPair? {
-        return map.get(pair)?.let { trading ->
-            println("Trading update ${pair} with close price $closePrice")
-            map.replace(
-                pair, trading.copy(
-                    closePrice = closePrice,
-                    profit = trading.type.calculateProfit(
-                        pair = pair,
-                        startingPrice = trading.openPrice,
-                        currentPrice = closePrice
-                    )
-                )
-            )
-            return trading.copy(
+        return map[pair]?.let { trading ->
+            println("Trading update $pair with close price $closePrice")
+            val rst = trading.copy(
                 closePrice = closePrice,
                 profit = trading.type.calculateProfit(
                     pair = pair,
@@ -97,6 +87,8 @@ class TradingManager(
                     currentPrice = closePrice
                 )
             )
+            map.replace(pair, rst)
+            return rst
         }
     }
 
