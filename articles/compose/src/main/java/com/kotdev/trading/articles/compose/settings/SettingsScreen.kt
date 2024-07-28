@@ -33,10 +33,9 @@ import com.kotdev.trading.core_ui.component.HeaderContent
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = viewModel()
+    viewModel: SettingsViewModel
 ) {
     val state by viewModel.states().collectAsState()
-
     Column(
         modifier = Modifier
             .fillMaxSize()

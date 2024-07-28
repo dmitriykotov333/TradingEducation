@@ -36,22 +36,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kotdev.trading.core.navigation.AppGraph
-import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core_ui.component.HeaderContent
 import com.kotdev.trading.core_ui.theme.Poppins
 import com.kotdev.trading.core_ui.theme.Theme
 import HistoryItem
+import android.app.Activity
 import androidx.compose.foundation.layout.BoxScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kotdev.trading.history.presentation.HistoryViewModel
 
 
 @Composable
 fun HistoryScreen(
-    viewModel: HistoryViewModel = viewModel(),
+    viewModel: HistoryViewModel
 ) {
 
-
+    val controller = LocalNavigator.currentOrThrow
     val paging by viewModel.historyPagingSource.collectAsState()
 
     val states by viewModel.states().collectAsState()
@@ -74,7 +76,7 @@ fun HistoryScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             HeaderContent {
-                AppNavigator.back(AppGraph.App)
+                controller.pop()
             }
             LazyColumn(
                 modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(

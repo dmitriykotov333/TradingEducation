@@ -1,9 +1,11 @@
 package com.kotdev.trading.splash.presentation
 
 import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kotdev.trading.core.di.Inject
 import com.kotdev.trading.core.navigation.AppGraph
-import com.kotdev.trading.core.navigation.AppNavigator
+import com.kotdev.trading.core.navigation.VoyagerRouter
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 import com.kotdev.trading.service.api.ApiResult
 import com.kotdev.trading.service.api.ServiceRepository
@@ -33,19 +35,13 @@ class SplashViewModel : BaseViewModel<SplashViewState, Nothing, Nothing>(
                         }
 
                         is ApiResult.Success -> {
-                            AppNavigator.navigateWithClearPreviousScreen(
-                                AppGraph.App,
-                                AppGraph.Trading
-                            )
+                           voyagerRouter.newRootScreen(AppGraph.Trading)
                         }
 
                         is ApiResult.Error -> {
                             viewState = viewState.copy(error = it.error ?: "Something went wrong")
                             delay(2100)
-                            AppNavigator.navigateWithClearPreviousScreen(
-                                AppGraph.App,
-                                AppGraph.Trading
-                            )
+                            voyagerRouter.newRootScreen(AppGraph.Trading)
                         }
 
                         else -> {}
@@ -55,7 +51,7 @@ class SplashViewModel : BaseViewModel<SplashViewState, Nothing, Nothing>(
         }
     }
 
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         job?.cancel()
         job = null

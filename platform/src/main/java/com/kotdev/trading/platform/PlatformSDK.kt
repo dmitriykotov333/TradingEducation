@@ -4,6 +4,7 @@ package com.kotdev.trading.platform
 import android.content.Context
 import com.kotdev.trading.articles.presentation.viewModelModule
 import com.kotdev.trading.core.di.Inject
+import com.kotdev.trading.core.navigation.VoyagerRouter
 import com.kotdev.trading.databaseModule
 import com.kotdev.trading.history.data.historyModule
 import com.kotdev.trading.service.data.di.ktorModule
@@ -14,6 +15,7 @@ import org.kodein.di.Copy
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.direct
+import org.kodein.di.provider
 import org.kodein.di.singleton
 
 
@@ -28,6 +30,11 @@ object PlatformSDK {
             DI {
                 importAll(
                     configuration,
+                    DI.Module("voyager") {
+                        bind<VoyagerRouter>() with provider {
+                            VoyagerRouter()
+                        }
+                    },
                     ktorModule,
                     databaseModule,
                     appWriteModule,

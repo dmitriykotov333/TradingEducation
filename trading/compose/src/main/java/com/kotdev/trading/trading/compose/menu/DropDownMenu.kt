@@ -50,7 +50,6 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun DropDownMenu(
-    activity: Activity,
     locale: String,
     expanded: Boolean,
     eventHandler: (TradingEvent) -> Unit,

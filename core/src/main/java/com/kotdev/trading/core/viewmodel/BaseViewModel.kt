@@ -2,6 +2,7 @@ package com.kotdev.trading.core.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kotdev.trading.core.navigation.VoyagerRouter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -22,6 +23,8 @@ import java.io.Closeable
 abstract class BaseViewModel<State : Any, Action, Event>(initialState: State) : ViewModel() {
 
     val coroutineScope: CoroutineScope = viewModelScope
+
+    val voyagerRouter = VoyagerRouter()
 
     private val viewStates = MutableStateFlow(initialState)
 

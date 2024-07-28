@@ -39,10 +39,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import coil.compose.AsyncImage
 import com.kotdev.trading.core.ArticleDetail
 import com.kotdev.trading.core.navigation.AppGraph
-import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core_ui.component.HeaderContent
 import com.kotdev.trading.core_ui.modifiers.bounceClick
 import com.kotdev.trading.core_ui.modifiers.noRippleClickable
@@ -56,6 +57,8 @@ import kotlinx.coroutines.launch
 fun ArticleDetailScreen(
     articles: ImmutableList<ArticleDetail>
 ) {
+    val controller = LocalNavigator.currentOrThrow
+
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState { articles.size }
 
@@ -72,7 +75,7 @@ fun ArticleDetailScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HeaderContent {
-            AppNavigator.back(AppGraph.App)
+            controller.pop()
         }
         Spacer(modifier = Modifier.height(15.dp))
         PagerIndicator(

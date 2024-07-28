@@ -40,7 +40,6 @@ import com.kotdev.trading.trading.compose.menu.DropDownMenu
 
 @Composable
 fun HeaderContent(
-    activity: Activity,
     state: TradingViewState,
     eventHandler: (TradingEvent) -> Unit
 ) {
@@ -48,7 +47,6 @@ fun HeaderContent(
         mutableStateOf(false)
     }
     DropDownMenu(
-        activity = activity,
         locale = state.locale,
         expanded = menu,
         eventHandler = eventHandler,

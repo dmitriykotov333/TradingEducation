@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.kotdev.trading.core.extensions.chartFormatFloat
 import com.kotdev.trading.core.navigation.AppGraph
-import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core_ui.component.HeaderContent
 import com.kotdev.trading.core_ui.theme.Poppins
 import com.kotdev.trading.core_ui.theme.Theme

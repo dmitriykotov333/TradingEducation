@@ -7,6 +7,5 @@ sealed class TradingAction {
     data object ContactDialog : TradingAction()
     data object InfoPopUp: TradingAction()
     data class FinishPopUp(val data: HistoryItem): TradingAction()
-    data object History: TradingAction()
     data class BalanceInfo(val msg: Int): TradingAction()
 }

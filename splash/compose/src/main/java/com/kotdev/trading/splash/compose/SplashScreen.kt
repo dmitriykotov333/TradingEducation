@@ -29,9 +29,10 @@ import com.kotdev.trading.core_ui.theme.Poppins
 import com.kotdev.trading.core_ui.theme.Theme
 import com.kotdev.trading.splash.presentation.SplashViewModel
 
+
 @Composable
 fun SplashScreen(
-    viewModel: SplashViewModel = viewModel()
+    viewModel: SplashViewModel
 ) {
     val state by viewModel.states().collectAsState()
 

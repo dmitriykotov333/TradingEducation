@@ -14,9 +14,9 @@ class AndroidNavConventionPlugin : Plugin<Project> {
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
-                "implementation"(libs.findLibrary("android-navigation").get())
-                "implementation"(libs.findLibrary("android-navigation-ui").get())
-
+                "api"(libs.findLibrary("android-navigation").get())
+                "api"(libs.findLibrary("android-navigation-screenmodel").get())
+                "api"(libs.findLibrary("android-navigation-kodein").get())
             }
         }
     }

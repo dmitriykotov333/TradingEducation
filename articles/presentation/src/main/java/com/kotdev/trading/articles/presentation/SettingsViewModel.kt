@@ -1,13 +1,13 @@
 package com.kotdev.trading.articles.presentation
 
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kotdev.trading.core.Settings
 import com.kotdev.trading.core.navigation.AppGraph
-import com.kotdev.trading.core.navigation.AppGraph.App.invoke
-import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 
 
-class SettingsViewModel: BaseViewModel<SettingsViewState, Nothing, SettingsEvent>(
+class SettingsViewModel : BaseViewModel<SettingsViewState, Nothing, SettingsEvent>(
     initialState = SettingsViewState(
         items = Settings.articles,
         faqs = Settings.faqs
@@ -15,25 +15,19 @@ class SettingsViewModel: BaseViewModel<SettingsViewState, Nothing, SettingsEvent
 ) {
 
     override fun obtainEvent(viewEvent: SettingsEvent) {
-        when(viewEvent) {
+        when (viewEvent) {
             is SettingsEvent.BackClick -> {
-                AppNavigator.back(AppGraph.App)
+                voyagerRouter.back()
             }
+
             is SettingsEvent.ItemClick -> {
-                when(viewEvent.index) {
+                when (viewEvent.index) {
                     0 -> {
-                        AppNavigator.push(
-                            controller = AppGraph.App,
-                            to = AppGraph.Faq
-                        )
+                        voyagerRouter.navigateTo(AppGraph.Faq)
                     }
+
                     else -> {
-                        AppNavigator.push(
-                            controller = AppGraph.App,
-                            to = AppGraph.Article.route.invoke(
-                                viewEvent.index.toString()
-                            )
-                        )
+                        voyagerRouter.navigateTo(AppGraph.Article(viewEvent.index))
                     }
                 }
             }

@@ -10,9 +10,7 @@ espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
-hilt = "2.50"
-hiltViewModel = "1.2.0"
-navigation = "2.7.7"
+voyagerVersion = "1.1.0-beta02"
 coroutine = "1.8.0"
 immutableCollections = "0.3.7"
 lifecycle = "2.8.2"
@@ -48,8 +46,9 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-android-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
-android-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
+android-navigation = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyagerVersion" }
+android-navigation-screenmodel = { group = "cafe.adriel.voyager", name = "voyager-screenmodel", version.ref = "voyagerVersion" }
+android-navigation-kodein = { group = "cafe.adriel.voyager", name = "voyager-kodein", version.ref = "voyagerVersion" }
 
 android-coroutine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
 android-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "immutableCollections" }
@@ -81,8 +80,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 android-kodein = { group = "org.kodein.di", name = "kodein-di", version.ref = "kodein" }
 android-kodein-framework = { group = "org.kodein.di", name = "kodein-di-framework-android-x", version.ref = "kodein" }
-android-kodein-compose = { group = "org.kodein.di", name = "kodein-di-framework-compose-android", version.ref = "kodein" }
-
+android-kodein-compose = { group = "org.kodein.di", name = "kodein-di-framework-android-x-compose", version.ref = "kodein" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }

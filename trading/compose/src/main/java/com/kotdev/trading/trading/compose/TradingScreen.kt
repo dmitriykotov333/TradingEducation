@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kotdev.trading.core.helpers.LocaleHelper
 import com.kotdev.trading.core.navigation.AppGraph
-import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core_ui.theme.Poppins
 import com.kotdev.trading.core_ui.theme.Theme
 import com.kotdev.trading.trading.compose.buttons.ActiveTrade
@@ -55,13 +54,10 @@ import com.kotdev.trading.trading.presentation.TradingViewState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
-
 @Composable
 fun TradingScreen(
-    activity: Activity,
     viewModel: TradingViewModel = viewModel()
 ) {
-
     val states by viewModel.states().collectAsState()
 
     Column(
@@ -72,7 +68,6 @@ fun TradingScreen(
     ) {
         Spacer(modifier = Modifier.height(15.dp))
         HeaderContent(
-            activity = activity,
             state = states,
             eventHandler = viewModel::obtainEvent
         )
@@ -97,7 +92,7 @@ fun TradingScreen(
         )
         Spacer(modifier = Modifier.height(10.dp))
     }
-    TradingAction(activity, viewModel)
+    TradingAction(viewModel)
 }
 
 @Composable
@@ -133,7 +128,7 @@ internal fun Trading(
 }
 
 @Composable
-internal fun TradingAction(activity: Activity, viewModel: TradingViewModel) {
+internal fun TradingAction(viewModel: TradingViewModel) {
 
     val context = LocalContext.current
 
@@ -156,7 +151,7 @@ internal fun TradingAction(activity: Activity, viewModel: TradingViewModel) {
         viewModel.actions().collectLatest {
             when (it) {
                 is TradingAction.UpdateLocale -> {
-                    LocaleHelper.setLocale(activity, it.language)
+                    LocaleHelper.setLocale(context, it.language)
                 }
 
 
@@ -176,12 +171,6 @@ internal fun TradingAction(activity: Activity, viewModel: TradingViewModel) {
                     balanceInfo = context.getString(it.msg)
                 }
 
-                is TradingAction.History -> {
-                    AppNavigator.push(
-                        controller = AppGraph.App,
-                        to = AppGraph.History
-                    )
-                }
             }
         }
     }

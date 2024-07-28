@@ -22,12 +22,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.registry.ScreenRegistry
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kotdev.trading.core.extensions.formatFloat
 import com.kotdev.trading.core.extensions.formatFloatPercent
 import com.kotdev.trading.core.navigation.AppGraph
-import com.kotdev.trading.core.navigation.AppNavigator
 import com.kotdev.trading.core_ui.R
 import com.kotdev.trading.core_ui.theme.Poppins
 import com.kotdev.trading.core_ui.theme.Theme
@@ -38,6 +40,8 @@ import com.kotdev.trading.trading.presentation.TradingViewState
 fun RatePairContent(
     state: TradingViewState,
 ) {
+    val controller = LocalNavigator.currentOrThrow
+
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -66,10 +70,7 @@ fun RatePairContent(
         )
         Percent(state)
         IconButton(modifier = Modifier.size(50.dp), onClick = {
-            AppNavigator.push(
-                controller = AppGraph.App,
-                to = AppGraph.Settings
-            )
+            controller.push(ScreenRegistry.get(AppGraph.Settings))
         }) {
             Image(
                 modifier = Modifier

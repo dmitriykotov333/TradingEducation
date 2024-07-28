@@ -11,6 +11,7 @@ import com.kotdev.trading.BalanceDBO
 import com.kotdev.trading.TradingDatabase
 import com.kotdev.trading.core.Utils
 import com.kotdev.trading.core.di.Inject
+import com.kotdev.trading.core.navigation.AppGraph
 import com.kotdev.trading.core.viewmodel.BaseViewModel
 import com.kotdev.trading.core_ui.R
 import com.kotdev.trading.trading.data.preferences.LocalePreferences
@@ -170,7 +171,7 @@ class TradingViewModel : BaseViewModel<TradingViewState, TradingAction, TradingE
             }
 
             is TradingEvent.HistoryClick -> {
-                viewAction = TradingAction.History
+                voyagerRouter.navigateTo(AppGraph.History)
             }
 
             is TradingEvent.RefreshBalanceClick -> {

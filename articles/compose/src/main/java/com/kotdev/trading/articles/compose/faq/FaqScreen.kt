@@ -44,7 +44,7 @@ import com.kotdev.trading.core_ui.theme.Theme
 
 @Composable
 fun FaqScreen(
-    viewModel: SettingsViewModel = viewModel()
+    viewModel: SettingsViewModel  
 ) {
     val state by viewModel.states().collectAsState()
     Column(

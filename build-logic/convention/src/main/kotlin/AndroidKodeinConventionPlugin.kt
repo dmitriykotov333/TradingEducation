@@ -13,9 +13,9 @@ class AndroidKodeinConventionPlugin : Plugin<Project> {
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
-                "implementation"(libs.findLibrary("android.kodein").get())
-                "implementation"(libs.findLibrary("android.kodein.framework").get())
-                "implementation"(libs.findLibrary("android.kodein.compose").get())
+                "implementation"(libs.findLibrary("android-kodein").get())
+                "implementation"(libs.findLibrary("android-kodein-framework").get())
+                "implementation"(libs.findLibrary("android-kodein-compose").get())
             }
         }
     }

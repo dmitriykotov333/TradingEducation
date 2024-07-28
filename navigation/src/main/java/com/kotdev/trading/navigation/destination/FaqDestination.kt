@@ -1,15 +1,43 @@
 package com.kotdev.trading.navigation.destination
 
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
+import cafe.adriel.voyager.core.registry.ScreenRegistry
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kotdev.trading.articles.compose.faq.FaqScreen
+import com.kotdev.trading.articles.compose.settings.SettingsScreen
+import com.kotdev.trading.articles.presentation.SettingsViewModel
 import com.kotdev.trading.core.navigation.AppGraph
+import com.kotdev.trading.core.navigation.VoyagerEvent
+import com.kotdev.trading.history.compose.HistoryScreen
+import com.kotdev.trading.history.presentation.HistoryViewModel
 
-fun NavGraphBuilder.faq() {
-    composable(
-        AppGraph.Faq.route
-    ) {
-        FaqScreen()
+class FaqDestination : Screen {
+
+    @Composable
+    override fun Content() {
+        val viewModel = viewModel<SettingsViewModel>()
+        val navigator = LocalNavigator.currentOrThrow
+        LaunchedEffect(Unit) {
+            viewModel.voyagerRouter.events()
+                .collect { event ->
+                    when (event) {
+                        is VoyagerEvent.NavigateTo -> navigator.push(
+                            ScreenRegistry.get(event.screen)
+                        )
+
+                        is VoyagerEvent.NewRootScreen -> navigator.replaceAll(
+                            ScreenRegistry.get(event.screen)
+                        )
+
+                        is VoyagerEvent.Back -> navigator.pop()
+                    }
+                }
+        }
+        FaqScreen(viewModel)
     }
 }
