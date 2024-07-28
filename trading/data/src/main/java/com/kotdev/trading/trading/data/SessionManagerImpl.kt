@@ -146,7 +146,7 @@ class SessionManagerImpl(
             val currentPrice =
                 apiPrice + Random.nextDouble(-0.00075, 0.00075).toFloat()
 
-            val tradingData = pair.tradingData.addTradings(currentPrice)
+            val tradingData = map[pair.pair]!!.tradingData.addTradings(currentPrice).takeLast(40)
 
             val lineData = updateLineData(tradingData)
 
